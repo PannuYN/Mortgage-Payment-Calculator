@@ -1,61 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- displays site properly based on user's device -->
 
-  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
-  
-  <title>Frontend Mentor | Mortgage repayment calculator</title>
+    <link rel="icon" type="image/png" sizes="32x32"
+      href="./assets/images/favicon-32x32.png">
 
-  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
-  <style>
+    <title>Frontend Mentor | Mortgage repayment calculator</title>
+
+    <!-- added necessary script -->
+    <script src="./script.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            jakarta: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            customYellow: '#D8DB2F',
+            customBlue: '#133041',
+            inputSpan: 'hsl(212, 45%, 89%)'
+          }
+        },
+      },
+    };
+  </script>
+
+    <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+    <style>
     .attribution { font-size: 11px; text-align: center; }
     .attribution a { color: hsl(228, 45%, 44%); }
+    @font-face {
+    font-family: 'Plus Jakarta Sans';
+    font-style: normal;
+    font-weight: 100 900;
+    src: url('./assets/fonts/PlusJakartaSans-VariableFont_wght.ttf') format('truetype');
+}
   </style>
-</head>
-<body>
 
-  Mortgage Calculator
-  Clear All
+  </head>
+  <body
+    class="font-jakarta text-customBlue bg-inputSpan lg:h-screen lg:text-sm h-[100%] m-0 overflow-hidden">
+    <div class="bg-white lg:flex p-0 lg:w-[60%] mx-auto lg:mt-10 lg:rounded-lg">
 
-  Mortgage Amount
+      <!-- form section (left) -->
+      <form class="p-5 flex flex-col gap-1 lg:w-1/2">
+        <div class="flex justify-between mb-4 items-center">
+          <p class="font-bold text-2xl">Mortgage Calculator</p>
+          <a class="text-gray-700/80 underline text-xs">Clear All</a>
+        </div>
 
-  Mortgage Term
+        <!-- mortgage amount -->
+        <div class="w-full mb-3">
+          <label class="text-customBlue/70">Mortgage Amount</label>
+          <div
+            class="mt-2 flex items-center border border-gray-800 rounded-md overflow-hidden hover:outline hover:outline-gray-950">
+            <!-- Left Span -->
+            <span class="bg-inputSpan px-4 py-1 text-customBlue">£</span>
+            <!-- Input -->
+            <input
+              type="text"
+              class="flex-1 px-4 py-1" required />
+          </div>
+        </div>
 
-  Interest Rate
+        <!-- layout mortgage term and interest rate based on screen size -->
+        <div class="lg:flex">
+          <div class="lg:w-1/2 lg:mr-2 mb-3">
+            <label class="text-customBlue/70">Mortgage Term</label>
+            <div
+              class="mt-2 flex items-center border border-gray-800 rounded-md overflow-hidden hover:outline hover:outline-gray-950">
+              <!-- Input -->
+              <input
+                type="text"
+                class="flex-1 px-4 py-1 lg:w-2/5" required />
+              <!-- Right Span -->
+              <span
+                class="bg-inputSpan px-4 py-1 text-customBlue lg:px-2 text-sm">years</span>
+            </div>
+          </div>
 
-  Mortgage Type
-  Repayment
-  Interest Only
+          <div class="lg:w-1/2 lg:mr-2 mb-3">
+            <label class="text-customBlue/70">Interest Rate</label>
+            <div
+              class="mt-2 flex items-center border border-gray-800 rounded-md overflow-hidden hover:outline hover:outline-gray-950">
+              <!-- Input -->
+              <input
+                type="text"
+                class="flex-1 px-4 py-1 lg:w-4/5" required />
+              <!-- Right Span -->
+              <span
+                class="bg-inputSpan px-4 py-1 text-customBlue lg:px-2 text-sm">%</span>
+            </div>
+          </div>
+        </div>
 
-  Calculate Repayments
+        <!-- mortgage type radio button input -->
+        <div class="flex flex-col w-full">
+          <label class="mb-1 text-customBlue/70">Mortgage Type</label>
+          <div
+            class="mt-2 mb-2 p-2 border border-gray-700/90 rounded-sm hover:outline hover:outline-gray-950">
+            <input type="radio" name="choice" value="Repayment">
+            <label class="ml-5 font-bold lg:text-md text-sm">Repayment</label>
+          </div>
+          <div
+            class="mb-3 p-2 border border-gray-700/90 rounded-sm hover:outline hover:outline-gray-950">
+            <input type="radio" name="choice" value="Interest Only">
+            <label class="ml-5 font-bold lg:text-md text-sm">Interest
+              Only</label>
+          </div>
+        </div>
 
-  <!-- Empty results start -->
+        <!-- submit button -->
+        <button
+          class="m-2 px-6 py-3 bg-customYellow rounded-full flex justify-center items-center hover:bg-white hover:outline">
+          <img src="./assets/images/icon-calculator.svg" class="mr-3" />
+          <span class="font-bold lg:text-md text-sm">Calculate Repayments</span>
+        </button>
 
-  Results shown here
+      </form>
 
-  Complete the form and click “calculate repayments” to see what 
-  your monthly repayments would be.
+      <!-- image section (right) -->
+      <div
+        class="bg-customBlue lg:w-1/2 lg:rounded-bl-3xl lg:rounded-lg lg:rounded-tl-none flex flex-col items-center justify-center text-center p-10 m-0">
+        <img src="./assets/images/illustration-empty.svg" />
+        <p class="font-bold text-2xl text-white mb-2">Results shown here</p>
+        <p class="text-white/70 lg:text-sm text-xs">Complete the form and click
+          “calculate
+          repayments” to see what
+          your monthly repayments would be.</p>
+      </div>
+    </div>
 
-  <!-- Empty results end -->
-
-  <!-- Completed results start -->
-
-  Your results
-
-  Your results are shown below based on the information you provided. 
-  To adjust the results, edit the form and click “calculate repayments” again.
-
-  Your monthly repayments
-
-  Total you'll repay over the term
-
-  <!-- Completed results end -->
-  
-  <div class="attribution">
-    Challenge by <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>. 
-    Coded by <a href="#">Your Name Here</a>.
-  </div>
-</body>
+    <!-- credit -->
+    <div class="attribution mt-2">
+      Challenge by <a
+        href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>.
+      Coded by <a href="#">Pan Nu Yan Naing</a>.
+    </div>
+  </body>
 </html>
