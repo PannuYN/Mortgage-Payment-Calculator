@@ -7,6 +7,7 @@
 
     <link rel="icon" type="image/png" sizes="32x32"
       href="./assets/images/favicon-32x32.png">
+    <link rel="stylesheet" href="./index.css">
 
     <title>Frontend Mentor | Mortgage repayment calculator</title>
 
@@ -23,7 +24,8 @@
           colors: {
             customYellow: '#D8DB2F',
             customBlue: '#133041',
-            inputSpan: 'hsl(212, 45%, 89%)'
+            inputSpan: 'hsl(212, 45%, 89%)',
+            resultBox: '#0F2532'
           }
         },
       },
@@ -32,26 +34,19 @@
 
     <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
     <style>
-    .attribution { font-size: 11px; text-align: center; }
-    .attribution a { color: hsl(228, 45%, 44%); }
-    @font-face {
-    font-family: 'Plus Jakarta Sans';
-    font-style: normal;
-    font-weight: 100 900;
-    src: url('./assets/fonts/PlusJakartaSans-VariableFont_wght.ttf') format('truetype');
-}
+    
   </style>
 
   </head>
   <body
-    class="font-jakarta text-customBlue bg-inputSpan lg:h-screen lg:text-sm h-[100%] m-0 lg:overflow-hidden">
-    <div class="bg-white lg:flex p-0 lg:w-[60%] mx-auto lg:mt-10 lg:rounded-lg">
+    class="font-jakarta text-customBlue bg-inputSpan lg:text-sm min-h-screen">
+    <div class="bg-white lg:flex p-0 lg:w-[60%] mx-auto lg:mt-20 lg:rounded-lg">
 
       <!-- form section (left) -->
       <form class="p-5 flex flex-col gap-1 lg:w-1/2">
         <div class="flex justify-between mb-4 items-center">
-          <p class="font-bold text-2xl">Mortgage Calculator</p>
-          <a class="text-gray-700/80 underline text-xs">Clear All</a>
+          <label class="font-bold text-xl">Mortgage Calculator</label>
+          <label class="text-gray-700/80 underline text-xs">Clear All</label>
         </div>
 
         <!-- mortgage amount -->
@@ -60,11 +55,11 @@
           <div
             class="mt-2 flex items-center border border-gray-800 rounded-md overflow-hidden hover:outline hover:outline-gray-950">
             <!-- Left Span -->
-            <span class="bg-inputSpan px-4 py-1 text-customBlue">£</span>
+            <span class="bg-inputSpan px-2 py-1 text-customBlue">£</span>
             <!-- Input -->
             <input
-              type="text"
-              class="flex-1 px-4 py-1" required />
+              type="text" oninput=restrictAndFormat(this)
+              class="flex-1 px-4 py-1 font-bold" required />
           </div>
         </div>
 
@@ -76,11 +71,11 @@
               class="mt-2 flex items-center border border-gray-800 rounded-md overflow-hidden hover:outline hover:outline-gray-950">
               <!-- Input -->
               <input
-                type="text"
-                class="flex-1 px-4 py-1 lg:w-2/5" required />
+                type="number"
+                class="flex-1 px-4 py-1 lg:w-3/5 font-bold" required />
               <!-- Right Span -->
               <span
-                class="bg-inputSpan px-4 py-1 text-customBlue lg:px-2 text-sm">years</span>
+                class="bg-inputSpan px-2 py-1 text-customBlue lg:px-2">years</span>
             </div>
           </div>
 
@@ -90,11 +85,11 @@
               class="mt-2 flex items-center border border-gray-800 rounded-md overflow-hidden hover:outline hover:outline-gray-950">
               <!-- Input -->
               <input
-                type="text"
-                class="flex-1 px-4 py-1 lg:w-4/5" required />
+                type="number" max="100"
+                class="flex-1 px-2 py-1 lg:w-4/5 font-bold" required />
               <!-- Right Span -->
               <span
-                class="bg-inputSpan px-4 py-1 text-customBlue lg:px-2 text-sm">%</span>
+                class="bg-inputSpan px-4 py-1 text-customBlue lg:px-2">%</span>
             </div>
           </div>
         </div>
@@ -103,21 +98,21 @@
         <div class="flex flex-col w-full">
           <label class="mb-1 text-customBlue/70">Mortgage Type</label>
           <div
-            class="mt-2 mb-2 p-2 border border-gray-700/90 rounded-sm hover:outline hover:outline-gray-950">
-            <input type="radio" name="choice" value="Repayment">
-            <label class="ml-5 font-bold lg:text-md text-sm">Repayment</label>
+            class="mt-2 mb-2 p-2 border border-gray-700/90 rounded-sm hover:outline hover:outline-customYellow hover:bg-customYellow/10 hover:border-transparent">
+            <input type="radio" name="choice" value="Repayment" class="mx-3 yellow-radio">
+            <label class="ml-2 font-bold lg:text-md text-sm">Repayment</label>
           </div>
           <div
-            class="mb-3 p-2 border border-gray-700/90 rounded-sm hover:outline hover:outline-gray-950">
-            <input type="radio" name="choice" value="Interest Only">
-            <label class="ml-5 font-bold lg:text-md text-sm">Interest
+            class="mb-3 p-2 border border-gray-700/90 rounded-sm hover:outline hover:outline-customYellow hover:bg-customYellow/10 hover:border-transparent">
+            <input type="radio" name="choice" value="Interest Only" class="mx-3 yellow-radio">
+            <label class="ml-2 font-bold lg:text-md text-sm">Interest
               Only</label>
           </div>
         </div>
 
         <!-- submit button -->
         <button
-          class="m-2 px-6 py-3 bg-customYellow rounded-full flex justify-center items-center hover:bg-white hover:outline">
+          class="lg:mr-auto m-2 px-6 py-3 lg:py-2 bg-customYellow rounded-full flex justify-center items-center hover:bg-white hover:outline">
           <img src="./assets/images/icon-calculator.svg" class="mr-3" />
           <span class="font-bold lg:text-md text-sm">Calculate Repayments</span>
         </button>
@@ -125,8 +120,8 @@
       </form>
 
       <!-- image section (right) -->
-      <div
-        class="bg-customBlue lg:w-1/2 lg:rounded-bl-3xl lg:rounded-lg lg:rounded-tl-none flex flex-col items-center justify-center text-center p-10 m-0">
+      <div id="image-section"
+        class="hidden bg-customBlue lg:w-1/2 lg:rounded-bl-[50px] lg:rounded-lg lg:rounded-tl-none flex flex-col items-center justify-center text-center p-10 m-0">
         <img src="./assets/images/illustration-empty.svg" />
         <p class="font-bold text-2xl text-white mb-2">Results shown here</p>
         <p class="text-white/70 lg:text-sm text-xs">Complete the form and click
@@ -134,10 +129,27 @@
           repayments” to see what
           your monthly repayments would be.</p>
       </div>
+
+      <!-- result section (right) -->
+      <div id="result-section"
+        class="bg-customBlue lg:w-1/2 lg:rounded-bl-[50px] lg:rounded-lg lg:rounded-tl-none flex flex-col justify-start py-6 px-8 m-0">
+        <label class="font-bold text-xl text-white mb-3">Your results</label>
+        <p class="text-white/70 text-xs">
+          Your results are shown based on the information you provided. To
+          adjust the results, edit the form and
+          click "calculate repayments" again.</p>
+        <div class="bg-resultBox rounded-md border-t-4 border-t-customYellow mt-7 px-4 py-5">
+          <p class="text-white/70 text-xs mb-2">Your monthly repayments</p>
+          <label class="text-customYellow text-4xl font-bold">£1,797.74</label>
+          <hr class="border-t border-gray-300/40 my-6">
+          <p class="text-white/70 text-xs mb-1">Total you'll repay over the term</p>
+          <label class="font-bold text-xl text-white">£539,322.94</label>
+        </div>
+      </div>
     </div>
 
     <!-- credit -->
-    <div class="attribution mt-2">
+    <div class="attribution mt-2 text-center">
       Challenge by <a
         href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>.
       Coded by <a href="#">Pan Nu Yan Naing</a>.
