@@ -43,10 +43,10 @@
     <div class="bg-white lg:flex p-0 lg:w-[60%] mx-auto lg:mt-20 lg:rounded-lg">
 
       <!-- form section (left) -->
-      <form class="p-5 flex flex-col gap-1 lg:w-1/2">
+      <form class="p-5 flex flex-col gap-1 lg:w-1/2" onsubmit="calculateRepayment(event)">
         <div class="flex justify-between mb-4 items-center">
           <label class="font-bold text-xl">Mortgage Calculator</label>
-          <label class="text-gray-700/80 underline text-xs">Clear All</label>
+          <label class="text-gray-700/80 underline text-xs" onclick="clearAll()">Clear All</label>
         </div>
 
         <!-- mortgage amount -->
@@ -57,7 +57,7 @@
             <!-- Left Span -->
             <span class="bg-inputSpan px-2 py-1 text-customBlue">£</span>
             <!-- Input -->
-            <input
+            <input id="mortgageAmt"
               type="text" oninput=restrictAndFormat(this)
               class="flex-1 px-4 py-1 font-bold" required />
           </div>
@@ -70,7 +70,7 @@
             <div
               class="mt-2 flex items-center border border-gray-800 rounded-md overflow-hidden hover:outline hover:outline-gray-950">
               <!-- Input -->
-              <input
+              <input id="mortgageTerm"
                 type="number"
                 class="flex-1 px-4 py-1 lg:w-3/5 font-bold" required />
               <!-- Right Span -->
@@ -84,7 +84,7 @@
             <div
               class="mt-2 flex items-center border border-gray-800 rounded-md overflow-hidden hover:outline hover:outline-gray-950">
               <!-- Input -->
-              <input
+              <input id="interestRate"
                 type="number" max="100"
                 class="flex-1 px-2 py-1 lg:w-4/5 font-bold" required />
               <!-- Right Span -->
@@ -99,19 +99,18 @@
           <label class="mb-1 text-customBlue/70">Mortgage Type</label>
           <div
             class="mt-2 mb-2 p-2 border border-gray-700/90 rounded-sm hover:outline hover:outline-customYellow hover:bg-customYellow/10 hover:border-transparent">
-            <input type="radio" name="choice" value="Repayment" class="mx-3 yellow-radio">
+            <input type="radio" name="option" value="Repayment" class="mx-3 yellow-radio" required>
             <label class="ml-2 font-bold lg:text-md text-sm">Repayment</label>
           </div>
           <div
             class="mb-3 p-2 border border-gray-700/90 rounded-sm hover:outline hover:outline-customYellow hover:bg-customYellow/10 hover:border-transparent">
-            <input type="radio" name="choice" value="Interest Only" class="mx-3 yellow-radio">
-            <label class="ml-2 font-bold lg:text-md text-sm">Interest
-              Only</label>
+            <input type="radio" name="option" value="Interest Only" class="mx-3 yellow-radio" required>
+            <label class="ml-2 font-bold lg:text-md text-sm">Interest Only</label>
           </div>
         </div>
 
         <!-- submit button -->
-        <button
+        <button type="submit"
           class="lg:mr-auto m-2 px-6 py-3 lg:py-2 bg-customYellow rounded-full flex justify-center items-center hover:bg-white hover:outline">
           <img src="./assets/images/icon-calculator.svg" class="mr-3" />
           <span class="font-bold lg:text-md text-sm">Calculate Repayments</span>
@@ -121,7 +120,7 @@
 
       <!-- image section (right) -->
       <div id="image-section"
-        class="hidden bg-customBlue lg:w-1/2 lg:rounded-bl-[50px] lg:rounded-lg lg:rounded-tl-none flex flex-col items-center justify-center text-center p-10 m-0">
+        class="bg-customBlue lg:w-1/2 lg:rounded-bl-[50px] lg:rounded-lg lg:rounded-tl-none flex flex-col items-center justify-center text-center p-10 m-0">
         <img src="./assets/images/illustration-empty.svg" />
         <p class="font-bold text-2xl text-white mb-2">Results shown here</p>
         <p class="text-white/70 lg:text-sm text-xs">Complete the form and click
@@ -132,7 +131,7 @@
 
       <!-- result section (right) -->
       <div id="result-section"
-        class="bg-customBlue lg:w-1/2 lg:rounded-bl-[50px] lg:rounded-lg lg:rounded-tl-none flex flex-col justify-start py-6 px-8 m-0">
+        class="hidden bg-customBlue lg:w-1/2 lg:rounded-bl-[50px] lg:rounded-lg lg:rounded-tl-none flex-col justify-start py-6 px-8 m-0">
         <label class="font-bold text-xl text-white mb-3">Your results</label>
         <p class="text-white/70 text-xs">
           Your results are shown based on the information you provided. To
@@ -140,10 +139,10 @@
           click "calculate repayments" again.</p>
         <div class="bg-resultBox rounded-md border-t-4 border-t-customYellow mt-7 px-4 py-5">
           <p class="text-white/70 text-xs mb-2">Your monthly repayments</p>
-          <label class="text-customYellow text-4xl font-bold">£1,797.74</label>
+          <label id="monthlyRepayment" class="text-customYellow text-4xl font-bold">£1,797.74</label>
           <hr class="border-t border-gray-300/40 my-6">
           <p class="text-white/70 text-xs mb-1">Total you'll repay over the term</p>
-          <label class="font-bold text-xl text-white">£539,322.94</label>
+          <label id="totalRepayment" class="font-bold text-xl text-white">£539,322.94</label>
         </div>
       </div>
     </div>

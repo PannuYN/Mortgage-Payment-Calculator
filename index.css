@@ -35,7 +35,7 @@ since accent-color alone won't work as expected on yellow unlike other colors */
     height: 16px;
     border-radius: 50%;
     padding: 2px;
-   }
+}
 .yellow-radio:checked {
     background-color: #D8DB2F; /* border color after checking */
     box-shadow: inset 0 0 0 2px white; /* white ring inside */
