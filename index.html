@@ -26,6 +26,9 @@
             customBlue: '#133041',
             inputSpan: 'hsl(212, 45%, 89%)',
             resultBox: '#0F2532'
+          },
+          cursor: {
+            smallFist: 'url("./assets/images/small-fist.cur"), pointer',
           }
         },
       },
@@ -43,54 +46,59 @@
     <div class="bg-white lg:flex p-0 lg:w-[60%] mx-auto lg:mt-20 lg:rounded-lg">
 
       <!-- form section (left) -->
-      <form class="p-5 flex flex-col gap-1 lg:w-1/2" onsubmit="calculateRepayment(event)">
+      <form class="p-5 flex flex-col gap-1 lg:w-1/2"
+        onsubmit="calculateRepayment(event)">
         <div class="flex justify-between mb-4 items-center">
           <label class="font-bold text-xl">Mortgage Calculator</label>
-          <label class="text-gray-700/80 underline text-xs" onclick="clearAll()">Clear All</label>
+          <label class="text-gray-700/80 underline text-xs cursor-smallFist"
+            onclick="clearAll()">Clear All</label>
         </div>
 
         <!-- mortgage amount -->
         <div class="w-full mb-3">
           <label class="text-customBlue/70">Mortgage Amount</label>
-          <div
-            class="mt-2 flex items-center border border-gray-800 rounded-md overflow-hidden hover:outline hover:outline-gray-950">
+          <div id="mortgageAmtContainer"
+            class="mt-2 flex items-center border border-gray-800/40 rounded-sm overflow-hidden hover:border-gray-900">
             <!-- Left Span -->
-            <span class="bg-inputSpan px-2 py-1 text-customBlue">£</span>
+            <span id="mortgageAmtSpan" class="bg-inputSpan px-2 py-1 text-customBlue">£</span>
             <!-- Input -->
             <input id="mortgageAmt"
               type="text" oninput=restrictAndFormat(this)
-              class="flex-1 px-4 py-1 font-bold" required />
+              class="flex-1 px-4 py-1 font-bold cursor-smallFist" />
           </div>
+          <label id="mortgageAmtError" class="text-red-600 text-xs hidden">This field is required</label>
         </div>
 
         <!-- layout mortgage term and interest rate based on screen size -->
         <div class="lg:flex">
           <div class="lg:w-1/2 lg:mr-2 mb-3">
             <label class="text-customBlue/70">Mortgage Term</label>
-            <div
-              class="mt-2 flex items-center border border-gray-800 rounded-md overflow-hidden hover:outline hover:outline-gray-950">
+            <div id="mortgageTermContainer"
+              class="mt-2 flex items-center border border-gray-800/40 rounded-sm overflow-hidden hover:border-gray-900">
               <!-- Input -->
               <input id="mortgageTerm"
                 type="number"
-                class="flex-1 px-4 py-1 lg:w-3/5 font-bold" required />
+                class="flex-1 px-4 py-1 lg:w-3/5 font-bold cursor-smallFist" />
               <!-- Right Span -->
-              <span
+              <span id="mortgageTermSpan"
                 class="bg-inputSpan px-2 py-1 text-customBlue lg:px-2">years</span>
             </div>
+            <label id="mortgageTermError" class="text-red-600 text-xs hidden">This field is required</label>
           </div>
 
           <div class="lg:w-1/2 lg:mr-2 mb-3">
             <label class="text-customBlue/70">Interest Rate</label>
-            <div
-              class="mt-2 flex items-center border border-gray-800 rounded-md overflow-hidden hover:outline hover:outline-gray-950">
+            <div id="interestRateContainer"
+              class="mt-2 flex items-center border border-gray-800/40 rounded-sm overflow-hidden hover:border-gray-900">
               <!-- Input -->
               <input id="interestRate"
                 type="number" max="100"
-                class="flex-1 px-2 py-1 lg:w-4/5 font-bold" required />
+                class="flex-1 px-2 py-1 lg:w-4/5 font-bold cursor-smallFist" />
               <!-- Right Span -->
-              <span
+              <span id="interestRateSpan"
                 class="bg-inputSpan px-4 py-1 text-customBlue lg:px-2">%</span>
             </div>
+            <label id="interestRateError" class="text-red-600 text-xs hidden">This field is required</label>
           </div>
         </div>
 
@@ -98,20 +106,24 @@
         <div class="flex flex-col w-full">
           <label class="mb-1 text-customBlue/70">Mortgage Type</label>
           <div onclick="checkRadio('radio1')"
-            class="mt-2 mb-2 p-2 border border-gray-700/90 rounded-sm hover:outline hover:outline-customYellow hover:bg-customYellow/10 hover:border-transparent">
-            <input id="radio1" type="radio" name="option" value="Repayment" class="mx-3 yellow-radio" required>
+            class="cursor-smallFist mt-2 mb-2 p-2 border border-gray-800/50 rounded-sm hover:outline hover:outline-1 hover:outline-customYellow hover:bg-customYellow/10 hover:border-transparent">
+            <input id="radio1" type="radio" name="option" value="Repayment"
+              class="mx-3 yellow-radio">
             <label class="ml-2 font-bold lg:text-md text-sm">Repayment</label>
           </div>
           <div onclick="checkRadio('radio2')"
-            class="mb-3 p-2 border border-gray-700/90 rounded-sm hover:outline hover:outline-customYellow hover:bg-customYellow/10 hover:border-transparent">
-            <input id="radio2" type="radio" name="option" value="Interest Only" class="mx-3 yellow-radio" required>
-            <label class="ml-2 font-bold lg:text-md text-sm">Interest Only</label>
+            class="cursor-smallFist p-2 border border-gray-500/50 rounded-sm hover:outline hover:outline-customYellow hover:bg-customYellow/10 hover:border-transparent">
+            <input id="radio2" type="radio" name="option" value="Interest Only"
+              class="mx-3 yellow-radio">
+            <label class="ml-2 font-bold lg:text-md text-sm">Interest
+              Only</label>
           </div>
+          <label id="mortgageTypeError" class="text-red-600 text-xs hidden mb-3 ">This field is required</label>
         </div>
 
         <!-- submit button -->
         <button type="submit"
-          class="lg:mr-auto m-2 px-6 py-3 lg:py-2 bg-customYellow rounded-full flex justify-center items-center hover:bg-white hover:outline">
+          class="cursor-smallFist lg:mr-auto m-2 px-6 py-3 lg:py-2 bg-customYellow rounded-full flex justify-center items-center hover:bg-customYellow/50">
           <img src="./assets/images/icon-calculator.svg" class="mr-3" />
           <span class="font-bold lg:text-md text-sm">Calculate Repayments</span>
         </button>
@@ -137,12 +149,16 @@
           Your results are shown based on the information you provided. To
           adjust the results, edit the form and
           click "calculate repayments" again.</p>
-        <div class="bg-resultBox rounded-md border-t-4 border-t-customYellow mt-7 px-4 py-5">
+        <div
+          class="bg-resultBox rounded-md border-t-4 border-t-customYellow mt-7 px-4 py-5">
           <p class="text-white/70 text-xs mb-2">Your monthly repayments</p>
-          <label id="monthlyRepayment" class="text-customYellow text-4xl font-bold">£1,797.74</label>
+          <label id="monthlyRepayment"
+            class="text-customYellow text-4xl font-bold">£1,797.74</label>
           <hr class="border-t border-gray-300/40 my-6">
-          <p class="text-white/70 text-xs mb-1">Total you'll repay over the term</p>
-          <label id="totalRepayment" class="font-bold text-xl text-white">£539,322.94</label>
+          <p class="text-white/70 text-xs mb-1">Total you'll repay over the
+            term</p>
+          <label id="totalRepayment"
+            class="font-bold text-xl text-white">£539,322.94</label>
         </div>
       </div>
     </div>
