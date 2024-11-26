@@ -27,7 +27,7 @@ Users should be able to:
 
 ### Screenshot
 
-![desktop view (empty, hover)](desktop-view-empty-hover.png)
+![desktop-view-empty-hover.png]
 ![desktop view (completed)](desktop-view-completed.png)
 ![mobile view (error)](mobile-view-error.png)
 
