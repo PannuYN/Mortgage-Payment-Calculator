@@ -97,14 +97,14 @@
         <!-- mortgage type radio button input -->
         <div class="flex flex-col w-full">
           <label class="mb-1 text-customBlue/70">Mortgage Type</label>
-          <div
+          <div onclick="checkRadio('radio1')"
             class="mt-2 mb-2 p-2 border border-gray-700/90 rounded-sm hover:outline hover:outline-customYellow hover:bg-customYellow/10 hover:border-transparent">
-            <input type="radio" name="option" value="Repayment" class="mx-3 yellow-radio" required>
+            <input id="radio1" type="radio" name="option" value="Repayment" class="mx-3 yellow-radio" required>
             <label class="ml-2 font-bold lg:text-md text-sm">Repayment</label>
           </div>
-          <div
+          <div onclick="checkRadio('radio2')"
             class="mb-3 p-2 border border-gray-700/90 rounded-sm hover:outline hover:outline-customYellow hover:bg-customYellow/10 hover:border-transparent">
-            <input type="radio" name="option" value="Interest Only" class="mx-3 yellow-radio" required>
+            <input id="radio2" type="radio" name="option" value="Interest Only" class="mx-3 yellow-radio" required>
             <label class="ml-2 font-bold lg:text-md text-sm">Interest Only</label>
           </div>
         </div>

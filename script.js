@@ -86,3 +86,9 @@ function switchRightSection (section, removingClass, addingClass) {
     section.classList.add(addingClass);
 }
 
+//for letting the use check radio by onlying clicking on the container
+function checkRadio (radioId) {
+    const radioButton = document.querySelector('#' + radioId);
+    radioButton.checked = true;
+}
+
